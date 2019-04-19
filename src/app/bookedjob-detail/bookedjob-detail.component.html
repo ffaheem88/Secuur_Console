@@ -1,0 +1,295 @@
+<mat-sidenav-container class="side-menu-ex">
+       
+        <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+        
+       
+       <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+     
+        <mat-list class="sideMenuBG">
+           <mat-list-item class="logo" (click)="home()">
+           <span>
+               <img src="../assets/icon.png" height="45" alt="">
+           </span>
+           <span>
+               <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+           </span>
+          
+         </mat-list-item>
+       <hr>
+       <mat-list-item role="button" (click)="home()">
+          <h3 matLine>Booked Jobs</h3>
+       </mat-list-item>
+            <mat-list-item role="button" (click)="addjob()">
+              <h3 matLine>New Booking</h3>
+           </mat-list-item>
+           <mat-list-item role="button" (click)="payments()">
+               <h3 matLine>Payments</h3>
+             </mat-list-item>
+            <mat-list-item role="button" (click)="settings()">
+             <h3 matLine>Settings</h3>
+           </mat-list-item>
+           <div *ngIf="timeLeft!='This job has ended'">
+           <hr>
+           <mat-list-item role="button" [owlDateTimeTrigger]="dt1" >
+            <input [(ngModel)]="bookedJob.endTime" hidden [owlDateTime]="dt1" (dateTimeChange)="ExtendTime()">
+            <h3  matLine>Extend Booking</h3>
+            <owl-date-time [pickerMode]="'dialog'" #dt1></owl-date-time>
+            </mat-list-item>
+          <mat-list-item role="button" (click)="cancelJob()">
+          
+              <h3  matLine>Cancel Booking</h3>
+              </mat-list-item>
+              </div>
+       </mat-list>
+     
+       </mat-sidenav>
+     
+  <mat-sidenav-content  class="matSideNavContent">
+
+      <mat-toolbar class="TopBar">  
+          
+           <span>
+              <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger blue600"></span></a>
+           </span>
+            <span>
+                <h1 matLine>Job Details</h1>
+            </span>
+                <span class="space"></span>
+                
+                  <span>
+                
+                      <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+                
+                </span>
+           
+          </mat-toolbar>
+         
+          <div *ngIf="showimage" (click)="hideFullImage()">
+                <img class="fullimage" src="{{pic}}">
+              </div>
+              <div *ngIf="screenWidth < 840" class="fab-menu"  >
+                    <button  (click)="showLocs=!showLocs" mat-raised-button color="warn"><mat-icon>location_searching</mat-icon></button>
+                    <button class="margin-top:10px;" (click)="showMsgs=!showMsgs" mat-raised-button color="primary"><mat-icon>message</mat-icon></button>
+                </div>
+                    <div tappable class="guard-list" *ngIf="showLocs">
+                           
+
+                            <div class="header-flow">
+                                    <p class="time">{{timeLeft}} </p>
+                                </div>
+                            
+                                <mat-accordion>
+                                    
+                                        <mat-expansion-panel *ngFor="let g of bookedJob?.assignedGuards" >
+                                      <mat-expansion-panel-header class="back-panel"  >
+                                        <span  >  <img class="img-circle" (click)="changeToGuardPosition(g?.id);showLocs=false;" [src]="g?.profile_pic"/>{{g?.first_name}} {{g?.last_name}}</span>
+                                      </mat-expansion-panel-header>
+                                      <mat-list>
+                                            <mat-list-item (click)="showHistMarker(g?.id);showLocs=false;">
+                                                    <button  mat-raised-button color="light" >Location History</button>
+                                                <mat-divider [inset]="true"></mat-divider>
+                                            </mat-list-item>
+                                           
+                                            <mat-list-item >
+                                                    <h5>Pointer History</h5>
+                                                    <mat-divider [inset]="true"></mat-divider>
+                                                </mat-list-item>
+                                                
+                                          <div *ngFor="let mark of markers;">
+                                                
+                                        <mat-list-item *ngIf="matchtoguard(mark.id,g?.id)" (click)="changeMapCentertoPoint(mark);showLocs=false;">
+                                            <p style="margin-right:2px;"><b>{{mark.raw}}</b></p>
+                                            <p *ngIf="mark.dat.length>1000"><img src="./assets/camera.png" class="img-circle"></p>
+                                            <p *ngIf="mark.dat.length<1000"><img src="{{mark.img}}" class="img-circle"></p>
+                                           
+                                            
+                                            <div [innerHtml]="mark.title"></div>
+                                            
+                                           <mat-divider [inset]="true"></mat-divider>
+                                        </mat-list-item>
+                                    </div>                  
+                                     </mat-list>
+                                    
+                    
+                                    </mat-expansion-panel>
+                                  
+                                </mat-accordion>
+                           
+                           
+                                </div>
+                                <div class="guard-list" *ngIf="showMsgs">
+                                        <div #element  [scrollTop]="element.scrollHeight">
+                                                <mat-list dense  class="chat-list">
+                                                    <mat-list-item *ngFor="let chat of chats; last as isLast"  [ngClass]="{'last': isLast}" no-lines>
+                                                     
+                                                        <div class="chat-message" text-right *ngIf="chat?.user === nickname" (click)="showFullImage(chat);showMsgs=false;" >
+                                                          <div class="right-bubble">
+                                                            <span class="msg-date-right">{{chat?.sendDate}}</span>
+                                                            <p class="msg-text-right" *ngIf="chat?.type==='message'" text-wrap>{{chat?.message}}</p>
+                                                            <div *ngIf="chat?.type==='image'" >
+                                                              <span></span>
+                                                            <img class="image-right" src="{{chat?.message}}">
+                                                          </div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="chat-message" text-left *ngIf="chat?.user !== nickname" (click)="showFullImage(chat);showMsgs=false;">
+                                                          <div class="left-bubble">
+                                                            <span class="msg-name-left">{{chat?.user}}</span>
+                                                            <span class="msg-date-left">{{chat?.sendDate}}</span>
+                                                            <p class="msg-text-left" *ngIf="chat?.type==='message'" text-wrap>{{chat?.message}}</p>
+                                                            <div *ngIf="chat?.type==='image'">
+                                                                <span></span>
+                                                              <img class="image-left" src="{{chat?.message}}"  >
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                    </mat-list-item>
+                                                  
+                                                  </mat-list>
+                                                </div>
+                                                  <mat-grid-list cols="11" rowHeight="100px">
+                                                        <mat-grid-tile colspan="9" rowspan="1">
+                                                    <input  class="send-text" placeholder="Send Message" [(ngModel)]="message" (keyup.enter)="sendMessage()">
+                                                    </mat-grid-tile>
+                                                    <mat-grid-tile colspan="2" rowspan="1">
+                                                    <button mat-icon-button  color="white" (click)="sendMessage()"><mat-icon>send</mat-icon></button>
+                                                    </mat-grid-tile>
+                                                  </mat-grid-list>
+                                    
+                                </div>
+          <div #map id="map"></div>
+
+<div *ngIf="screenWidth > 840" class="left-flow" >
+    <mat-tab-group >
+        <mat-tab label="Details">
+            <div class="header-flow">
+                Address
+            </div>
+            
+            <div class="content-flow">
+                <a  (click)="changeCenterToAdress()" >{{bookedJob?.address}} </a>
+                <button  mat-button  (click)="changeCenterToAdress()">Goto Address</button>
+
+              </div>
+              <hr>
+              <div class="header-flow">
+                  Start Time
+              </div>
+              
+              <div class="content-flow">
+                  {{bookedJob?.startTime | date: 'EEEE, MMMM d, y, h:mm a'}} 
+                </div>
+                <div class="header-flow">
+                    End Time
+                </div>
+                
+                <div class="content-flow">
+                    {{bookedJob?.endTime | date: 'EEEE, MMMM d, y, h:mm a' }} 
+                  </div>
+                  <div class="content-flow">
+                  <p class="time">{{timeLeft}} </p>
+                  </div>
+            <hr>
+                  <div class="header-flow">
+                      Details
+                  </div>
+                  
+                  <div class="content-flow">
+                      {{bookedJob?.instructions}} 
+                    </div>
+            <hr>
+            <div class="header-flow">
+                Employees
+            </div>
+        
+            <mat-accordion>
+                
+                    <mat-expansion-panel   *ngFor="let g of bookedJob?.assignedGuards" >
+                  <mat-expansion-panel-header class="back-panel"  (click)="changeToGuardPosition(g?.id)">
+                    <span  >  <img class="img-circle"  [src]="g?.profile_pic"/>{{g?.first_name}} {{g?.last_name}}</span>
+                  </mat-expansion-panel-header>
+                  <mat-list>
+                        <mat-list-item (click)="showHistMarker(g?.id)">
+                                <button  mat-raised-button color="light" >Location History</button>
+                            <mat-divider [inset]="true"></mat-divider>
+                        </mat-list-item>
+                       
+                        <mat-list-item >
+                                <h5>Assignments & Pointers</h5>
+                                <mat-divider [inset]="true"></mat-divider>
+                            </mat-list-item>
+                            
+                      <div *ngFor="let mark of markers;">
+                            
+                    <mat-list-item *ngIf="matchtoguard(mark.id,g?.id)" (click)="changeMapCentertoPoint(mark)">
+                         <p style="margin-right:2px;"><b>{{mark.raw}}</b></p>
+                        <p *ngIf="mark.dat.length>1000"><img src="./assets/camera.png" class="img-circle"></p>
+                        <p *ngIf="mark.dat.length<1000"><img src="{{mark.img}}" class="img-circle"></p>
+                       
+
+                        <div [innerHtml]="mark.title"></div>
+                        
+                       <mat-divider [inset]="true"></mat-divider>
+                    </mat-list-item>
+                </div>                  
+                 </mat-list>
+                
+
+                </mat-expansion-panel>
+              
+            </mat-accordion>
+              
+          
+        </mat-tab>
+        <mat-tab  label="Messages" >
+            <div #element class="chat-wrapper" [scrollTop]="element.scrollHeight">
+            <mat-list dense  class="chat-list">
+                <mat-list-item *ngFor="let chat of chats; last as isLast"  [ngClass]="{'last': isLast}" no-lines>
+                 
+                    <div class="chat-message" text-right *ngIf="chat?.user === nickname" (click)="showFullImage(chat)" >
+                      <div class="right-bubble">
+                        <span class="msg-date-right">{{chat?.sendDate}}</span>
+                        <p class="msg-text-right" *ngIf="chat?.type==='message'" text-wrap>{{chat?.message}}</p>
+                        <div *ngIf="chat?.type==='image'" >
+                          <span></span>
+                        <img class="image-right" src="{{chat?.message}}">
+                      </div>
+                      </div>
+                    </div>
+                    <div class="chat-message" text-left *ngIf="chat?.user !== nickname" (click)="showFullImage(chat)">
+                      <div class="left-bubble">
+                        <span class="msg-name-left">{{chat?.user}}</span>
+                        <span class="msg-date-left">{{chat?.sendDate}}</span>
+                        <p class="msg-text-left" *ngIf="chat?.type==='message'" text-wrap>{{chat?.message}}</p>
+                        <div *ngIf="chat?.type==='image'">
+                            <span></span>
+                          <img class="image-left" src="{{chat?.message}}"  >
+                        </div>
+                      </div>
+                    </div>
+                </mat-list-item>
+              
+              </mat-list>
+            </div>
+              <mat-grid-list cols="11" rowHeight="100px">
+                    <mat-grid-tile colspan="9" rowspan="1">
+                <input  class="send-text" placeholder="Send Message" [(ngModel)]="message" (keyup.enter)="sendMessage()">
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                <button class="button-send" mat-button (click)="sendMessage()"><mat-icon>send</mat-icon></button>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+             
+              
+         
+        </mat-tab>
+      </mat-tab-group>
+
+      
+
+</div>
+  
+
+ </mat-sidenav-content>
+</mat-sidenav-container>

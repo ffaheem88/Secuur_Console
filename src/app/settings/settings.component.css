@@ -1,0 +1,96 @@
+.space {
+  
+  flex: 1 1 auto;
+}
+
+.sideMenuBG {
+  background-color: #0F0F0F;
+}
+
+.sideMenuBG mat-list-item {
+    border-style: none;
+    /* //border-color: #808080;
+    //border-width: 0.5px; */
+    background-color: #0F0F0F;
+    font-family: Nunito, sans-serif;
+    font-weight: lighter;
+}
+
+.TopBar{
+  background-color: #333;
+  font-family: Nunito, sans-serif;
+  font-weight: lighter;
+  color: #FFF;
+}
+
+.sideMenuBG mat-list-item a {
+   color: #FFF;
+   text-decoration: none;
+   margin-left: 15px;
+   border-style: none;
+   border: 0;
+}
+
+
+
+
+.sideMenuBG h3  {
+ color: #FFFFFF;
+}
+.sideMenuBG mat-list-item:hover {
+  background-color: #424242;
+}
+.side-menu-ex {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.matSideNav {
+width: 200px;
+background-color: #0F0F0F;
+}
+
+.footer{
+  font-size:13px;
+  color:black;
+  text-align: center;
+  margin-bottom:10px;
+  font-weight: 600;
+}
+
+h1 {
+ color: #000000;
+ font-family: Nunito, sans-serif;
+ /* text-align: right; */
+ margin-left: 35px;
+ font-size: 25px;
+ /* font-weight: bold; */
+}
+
+
+.logo{
+  margin-top:5%;
+}
+.logo-header{
+  margin-left:10px;
+  margin-top:10px;
+  opacity:0.5;
+}
+
+
+.matSettingsContainer {
+  display: flex;
+  flex-direction: column;
+  
+  
+  background-color: #f2f2f2;
+  border-radius: 0px;
+  padding: 50px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+

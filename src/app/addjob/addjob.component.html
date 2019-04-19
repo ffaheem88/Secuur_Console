@@ -1,0 +1,140 @@
+<mat-sidenav-container class="side-menu-ex">
+  <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+    
+   
+   <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+ 
+    <mat-list class="sideMenuBG">
+       <mat-list-item class="logo" (click)="home()">
+       <span>
+           <img src="../assets/icon.png" height="45" alt="">
+       
+       </span>
+       <span>
+           <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+       </span>
+      
+     </mat-list-item>
+   <hr>
+    
+        <mat-list-item role="button" (click)="home()">
+          <h3 matLine>Booked Jobs</h3>
+       </mat-list-item>
+       <mat-list-item role="button" (click)="payments()">
+           <h3 matLine>Payment Methods</h3>
+         </mat-list-item>
+        <mat-list-item role="button" (click)="settings()">
+         <h3 matLine>Settings</h3>
+       </mat-list-item>
+   </mat-list>
+ 
+   </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <mat-toolbar >  
+      
+       <span>
+          <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+       </span>
+        <span>
+            <h1 matLine>New Booking</h1>
+        </span>
+            <span class="space"></span>
+            
+              <span>
+            
+                  <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+            
+            </span>
+       
+      </mat-toolbar>
+
+
+<div class="newJobContainer">
+
+    <form (ngSubmit)="addJob(newJobForm)" #newJobForm="ngForm">
+     
+ 
+      <div class="form-group">
+        <label for="address" class="form-label">Address</label>
+        <input class="form-control" id="address" style="font-weight: 600;" type="text" required [(ngModel)]="newJob.address" name="address" #address="ngModel"  placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" #search />
+      </div>
+      <div class="form-group">
+        <label for="startDate" >Date</label>
+        <input class="form-control" style="font-weight: 600;" [readonly]="false" [(ngModel)]="newJob.startDate" #startDate="ngModel" id="startDate" (dateTimeChange)="getEmployees()"  [owlDateTime]="dt3"   name="startDate" [owlDateTimeTrigger]="dt3" required>
+        <owl-date-time [pickerMode]="'dialog'" #dt3 ></owl-date-time>
+     </div>
+      <div class="form-group">
+         <label for="duration" >Duration (Hours)</label><br/>
+            <select class="form-control" id="duration" required [(ngModel)]="newJob.duration" name="duration" #duration="ngModel" (change)="getEmployees()"  style="font-weight: 600;height:40px;"  #duration>
+               <option *ngFor="let h of hours" [value]="h.name">
+                  {{h.name}}
+               </option>
+            </select>
+      </div>
+     <div class="form-group">
+        <label for="instructions" >Instructions</label>
+  	<textarea class="form-control" [(ngModel)]="newJob.instructions"  #instructions="ngModel" placeholder="Instructions" rows="5" id="instructions" name="instructions" required>        </textarea>
+     </div>
+
+
+     <div class="form-group">
+        <mat-form-field class="demo-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let guard of Assigned" [selectable]="selectable"
+                       [removable]="removable" (remove)="remove(guard)">
+                       <img class="img-circle" aria-hidden src="{{guard.profile_pic}}" height="25" />
+                {{guard.first_name}} {{guard.last_name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input matInput 
+              [matAutocomplete]="auto"
+                      placeholder="Assign Employees"
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     />
+            </mat-chip-list>
+            <mat-autocomplete (optionSelected)="addNew($event)" #auto="matAutocomplete">
+                <mat-option *ngFor="let av_guard of Available" [value]="av_guard">
+                    <img class="img-circle" aria-hidden src="{{av_guard.profile_pic}}" height="25" />
+                  {{ av_guard.first_name }} {{av_guard.last_name}}
+                </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+     </div>
+      
+     <!-- 
+        <label for="numberOfGuards" >Number of Guards</label><br/>
+        <select class="form-control" id="numberOfGuards" required [(ngModel)]="newJob.numberOfGuards" name="numberOfGuards" #numberOfGuards="ngModel" style="font-weight: 600;;height:40px;" #numberOfGuards>
+           <option *ngFor="let g of guards" [value]="g.count">
+                {{g.count}}
+           </option>
+        </select>
+     </div> -->
+     <br>
+     <br>
+      <!-- <div class="bill">
+        <label for="instructions" >Total Billed Amount</label>
+        <p class="amount">
+          $ {{Assigned.length*duration.value*rate}}
+        </p>
+        <p class="rate">
+          @ ${{rate}}/Hr
+        </p>
+      </div> -->
+  
+    <br/>  
+
+    <button mat-raised-button color="primary" type="submit" class="btn btn-success" [disabled]="!newJobForm.form.valid">Book</button>
+
+    </form>
+
+    <br/><br/>
+
+</div>
+<br/><br/><br/>
+<div class="footer">Copyright © 2018 Secuur.co. All rights reserved.</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

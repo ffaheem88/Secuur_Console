@@ -1,0 +1,146 @@
+
+ 
+
+<mat-sidenav-container class="side-menu-ex">
+  <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+   
+  
+  <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+
+   <mat-list class="sideMenuBG">
+      <mat-list-item class="logo">
+      <span>
+          <img src="../assets/icon.png" height="45" alt="">
+      
+      </span>
+      <span>
+          <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+      </span>
+     
+    </mat-list-item>
+  <hr>
+  <mat-list-item role="button" (click)="employee()">
+        <h3 matLine>Employees</h3>
+     </mat-list-item>
+       <mat-list-item role="button" (click)="addjob()">
+         <h3 matLine>New Booking</h3>
+      </mat-list-item>
+      <mat-list-item role="button" (click)="sticker()">
+            <h3 matLine>QR Codes</h3>
+         </mat-list-item>
+      <mat-list-item role="button" (click)="payments()">
+          <h3 matLine>Payments</h3>
+        </mat-list-item>
+       <mat-list-item role="button" (click)="settings()">
+        <h3 matLine>Settings</h3>
+      </mat-list-item>
+  </mat-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+     
+      <mat-toolbar >  
+        
+         <span>
+            <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+         </span>
+          <span>
+              <h1 matLine>Booked Jobs</h1>
+          </span>
+              <span class="space"></span>
+              
+                <span>
+              
+                    <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+              
+              </span>
+         
+        </mat-toolbar>
+
+<div class="noJobsMessage" *ngIf="emptyJobs">
+       <h1>You have no jobs posted</h1>
+</div>
+
+<div  *ngIf="!emptyJobs">
+<!-- 
+<div class="dates">
+        <select (change)="dateSelected($event.target.value)" style="line-height: 50px; height: 50px;">
+           <option *ngFor="let month of months">
+                {{month}}
+           </option>
+        </select>
+</div> -->
+
+
+
+ <div  class="jobContainer">
+   
+    <mat-form-field>
+       
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+       
+    </mat-form-field><br/>
+    <mat-table #table [dataSource]="dataSource" matSort>
+<div *ngIf="screenWidth > 840">
+        <ng-container matColumnDef="address">
+           <mat-header-cell  *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+           <mat-cell role="button" class="address" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.address}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="jobstatus">
+            <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+            <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.statusdes}} </mat-cell>
+         </ng-container>
+    </div>
+        <ng-container matColumnDef="startTime">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> Start Time </mat-header-cell>
+           <mat-cell class="startTime-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.startTime | date: 'EEEE, MMMM d, y, h:mm a'}} </mat-cell>
+        </ng-container>
+    
+        <!-- <ng-container matColumnDef="numberOfGuards">
+           <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Guards Requested </mat-header-cell>
+           <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.numberOfGuards}} </mat-cell>
+        </ng-container> -->
+
+        <ng-container matColumnDef="assignedGuards">
+            <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Guards on Duty </mat-header-cell>
+            <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.numberOfGuards}} </mat-cell>
+         </ng-container>
+
+      
+
+         <ng-container matColumnDef="details">
+            <mat-header-cell class="header-cell" *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" >
+                <div *ngIf="screenWidth > 840">
+                  <button color="primary" mat-raised-button routerLink="/bookedjob-detail/{{element.id}}">Details</button>
+                  &nbsp;
+                  <button style="background:#888888;color:#ffffff;" [disabled]="element.statusdes==='Ended' || element.statusdes==='Active' || element.statusdes==='Expired'  " routerLink="/assign-employee/{{element.id}}" mat-raised-button>Assign</button> 
+                </div>
+                <div *ngIf="screenWidth < 840">
+                        <button color="primary" mat-icon-button routerLink="/bookedjob-detail/{{element.id}}"><mat-icon aria-label="Details">subject</mat-icon></button>
+                       <br>
+                        <button  color="primary" [disabled]="element.statusdes==='Ended' || element.statusdes==='Active' || element.statusdes==='Expired'  "  routerLink="/assign-employee/{{element.id}}" mat-icon-button><mat-icon aria-label="swap">import_export</mat-icon></button> 
+                      </div>
+                </mat-cell>
+               
+         </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row [style.background-color]="getColor(row)" [style.font-weight]="getFont(row)" [style.box-shadow]="getShadow(row)"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator class="" #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+
+</div>
+
+
+<div class="footer">Copyright © 2018 Secuur.co. All rights reserved.</div>
+
+ </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,93 @@
+
+ 
+
+<mat-sidenav-container class="side-menu-ex">
+    <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+     
+    
+    <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+  
+     <mat-list class="sideMenuBG">
+        <mat-list-item class="logo">
+        <span>
+            <img src="../assets/icon.png" height="45" alt="">
+        
+        </span>
+        <span>
+            <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+        </span>
+       
+      </mat-list-item>
+    <hr>
+    <mat-list-item role="button" (click)="addsticker()">
+          <h3 matLine>New QR Code</h3>
+       </mat-list-item>
+       <mat-list-item role="button" (click)="home()">
+              <h3 matLine>Booked Jobs</h3>
+           </mat-list-item>
+         <mat-list-item role="button" (click)="addjob()">
+           <h3 matLine>New Booking</h3>
+        </mat-list-item>
+        <mat-list-item role="button" (click)="payments()">
+            <h3 matLine>Payments</h3>
+          </mat-list-item>
+         <mat-list-item role="button" (click)="settings()">
+          <h3 matLine>Settings</h3>
+        </mat-list-item>
+    </mat-list>
+  
+    </mat-sidenav>
+    <mat-sidenav-content>
+  
+       
+        <mat-toolbar >  
+          
+           <span>
+              <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+           </span>
+            <span>
+                <h1 matLine>QR Codes</h1>
+            </span>
+                <span class="space"></span>
+                
+                  <span>
+                
+                      <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+                
+                </span>
+           
+          </mat-toolbar>
+  
+  <div class="noJobsMessage" *ngIf="empty">
+         <h1>You have no QR Codes</h1><br>
+         <button mat-button (click)="addsticker()">Add QR Codes</button>
+  </div>
+  
+  <div  *ngIf="!empty">
+  
+  
+   <div  class="jobContainer">
+      <h4 style="text-align: center;vertical-align: -webkit-baseline-middle;">To print the QR Code, right click on the chosen code and select Save Image.</h4>
+      <mat-grid-list cols="2" >
+        <div *ngFor="let sticker of stickers">
+          <mat-grid-tile style="text-align: center;vertical-align: -webkit-baseline-middle;" ><h1>{{sticker.id}}</h1>
+            </mat-grid-tile>
+            <mat-grid-tile>
+            <qrcode [qrdata]="sticker.id" [size]="256" [level]="'M'"></qrcode>
+          </mat-grid-tile>
+      
+        </div>
+        </mat-grid-list>
+        
+  
+  </div>
+  
+  </div>
+  
+  
+  <div class="footer">Copyright © 2018 Secuur.co. All rights reserved.</div>
+  
+   </mat-sidenav-content>
+  
+  </mat-sidenav-container>
+  

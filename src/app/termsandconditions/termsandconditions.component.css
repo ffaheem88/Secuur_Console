@@ -1,0 +1,109 @@
+
+
+.termsMessage{
+  color: #FF0000;
+ }
+ 
+ .matRegisterContainer {
+   display: flex;
+   flex-direction: column;
+  
+   border-radius: 0px;
+   padding: 40px;
+   width: 75%;
+   height: 100%;
+   margin: 0 auto;
+  
+ }
+ 
+ mat-toolbar{
+   background: white;
+   
+ }
+ 
+ .space {
+  
+   flex: 1 1 auto;
+ }
+ 
+ 
+ 
+ .sideMenuBG h3  {
+   color: #FFFFFF;
+  }
+  
+  .side-menu-ex {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .matSideNav {
+  width: 300px;
+  background-color: #0F0F0F;
+  }
+  
+  
+  h1 {
+   color: #000000;
+   font-family: Nunito, sans-serif;
+   /* text-align: right; */
+   font-size: 21px;
+   /* font-weight: bold; */
+  }
+ 
+  h4{
+   color: #363636;
+   font-family: Nunito, sans-serif;
+   /* text-align: right; */
+   font-size: 15px;
+   margin-bottom:70px;
+   /* font-weight: bold; */
+  }
+  .label{
+    color: #000000;
+    font-size: 11px;
+    font-weight:bold;
+    margin-left:-6px;
+    margin-bottom:20px;
+  }
+  
+  .blue600{
+    color: #4286F4;
+    }
+  .logo{
+    margin-top:40px;
+    margin-left:20px;
+  }
+  .logo-header{
+   font-family: Nunito, sans-serif;
+   font-size:28px;
+    margin-left:10px;
+    margin-top:10px;
+    opacity:0.5;
+  }
+
+  @media screen and (max-width: 600px) {
+    .matSideNav {
+      visibility: hidden;
+      
+      float: left;
+      margin: 10px auto 5px 20px;
+      width: 0%;
+      display: none;
+    }
+  
+    .matRegisterContainer {
+      display: flex;
+      flex-direction: column;
+     
+      border-radius: 0px;
+      padding: 5px;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+     
+    }
+  }

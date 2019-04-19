@@ -1,0 +1,136 @@
+.space {
+  
+  flex: 1 1 auto;
+}
+
+.sideMenuBG {
+  background-color: #0F0F0F;
+}
+
+.sideMenuBG mat-list-item {
+    border-style: none;
+    /* //border-color: #808080;
+    //border-width: 0.5px; */
+    background-color: #0F0F0F;
+    font-family: Nunito, sans-serif;
+    font-weight: lighter;
+}
+
+.TopBar{
+  background-color: #333;
+  font-family: Nunito, sans-serif;
+  font-weight: lighter;
+  color: #FFF;
+}
+
+.sideMenuBG mat-list-item a {
+   color: #FFF;
+   text-decoration: none;
+   margin-left: 15px;
+   border-style: none;
+   border: 0;
+}
+
+
+
+
+.sideMenuBG h3  {
+ color: #FFFFFF;
+}
+.sideMenuBG mat-list-item:hover {
+  background-color: #424242;
+}
+.side-menu-ex {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.matSideNav {
+width: 200px;
+background-color: #0F0F0F;
+}
+
+.logo{
+  margin-top:5%;
+}
+.logo-header{
+  margin-left:10px;
+  margin-top:10px;
+  opacity:0.5;
+}
+
+.footer{
+  font-size:13px;
+  color:black;
+  text-align: center;
+  margin-bottom:10px;
+  font-weight: 600;
+}
+
+h1 {
+ color: #000000;
+ font-family: Nunito, sans-serif;
+ /* text-align: right; */
+ margin-left: 35px;
+ font-size: 25px;
+ /* font-weight: bold; */
+}
+
+label {
+ font-family: Nunito, sans-serif;
+ font-size: 16px;
+ color: rgba(0,0,0,1);
+ margin-left: 20px;
+}
+
+.bank-container
+{
+  margin: 0px auto;
+  position: absolute;
+  right: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  left: 0;
+  width: 80%;
+  /* height: 320px; */
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.bank-container input
+{
+  width: 70%;
+  margin-left: 20px;
+}
+
+.bank-container button
+{
+  margin-left: 20px;
+}
+
+.bankError {
+
+color: red;
+
+}
+
+.bankAccountContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 50%;
+  min-width: 300px;
+  background-color: #f2f2f2;
+  border-radius: 0px;
+  padding: 40px;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.bankAccountContainer label {
+  font-family: Nunito, sans-seirf;
+  font-size: 20px;
+}

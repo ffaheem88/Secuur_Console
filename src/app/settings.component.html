@@ -1,0 +1,119 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" style="margin-top:0px;margin-bottom:0px;">
+          <img src="../../assets/icon.png" height="20" alt="">
+     </a>
+    </div>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" style="color:#808080">secuur.co</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a role="button" routerLink="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="matRegisterContainer mat-elevation-z10">
+ 
+    <form (ngSubmit)="registerClient(clientForm)" #clientForm="ngForm">
+      
+      <div class="form-group">
+         <label for="first_name" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 30px;">First Name</label>
+         <input type="text" class="form-control" id="first_name" required [(ngModel)]="newClient.first_name" name="first_name" #first_name="ngModel">
+         <div [hidden]="first_name.valid || first_name.pristine" class="alert alert-danger">
+                First Name is Required
+         </div>         
+      </div>
+
+      <div class="form-group">
+         <label for="last_name" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Last Name</label>
+         <input type="text" class="form-control" id="last_name" required [(ngModel)]="newClient.last_name" name="last_name" #last_name="ngModel">
+         <div [hidden]="last_name.valid || last_name.pristine" class="alert alert-danger">
+                Last Name is Required
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="email" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Email</label>
+         <input type="text" value="" class="form-control" id="email" required [(ngModel)]="newClient.email" name="email" #email="ngModel">
+      </div>
+
+      <div class="form-group">
+         <label for="password" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Password</label>
+         <input type="password" class="form-control" id="password" required [(ngModel)]="newClient.password" name="password" #password="ngModel">
+         <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                Password is Required
+         </div>
+      </div>
+
+     <div class="form-group">
+         <label for="phone" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Phone Number</label>
+         <input type="text" value="{{phone}}" class="form-control" id="phone" required [(ngModel)]="newClient.phone" name="phone" #phone="ngModel">
+         <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+                Phone Number is Required
+         </div>
+      </div>
+
+     <div class="form-group">
+         <label for="address" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Address</label>
+         <input type="text" class="form-control" id="address" required [(ngModel)]="newClient.address" name="address" #address="ngModel" #search>
+         <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+                Address is Required
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="city" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">City</label>
+         <input type="text" class="form-control" id="city" required [(ngModel)]="newClient.city" name="city" #city="ngModel">
+         <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                City is Required
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="state" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">State</label>
+         <input type="text" class="form-control" id="state" required [(ngModel)]="newClient.state" name="state" #state="ngModel">
+         <div [hidden]="state.valid || state.pristine" class="alert alert-danger">
+                State is Required
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="zip" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Zip</label>
+         <input type="text" class="form-control" id="zip" required [(ngModel)]="newClient.zip" name="zip" #zip="ngModel">
+         <div [hidden]="zip.valid || zip.pristine" class="alert alert-danger">
+                Zip is Required
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="company" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Company Name</label>
+         <input type="text" value="{{companyName}}" class="form-control" id="company" required [(ngModel)]="newClient.company" name="company" #company="ngModel">
+         <div [hidden]="company.valid || company.pristine" class="alert alert-danger">
+                Company Name is Required
+         </div>
+      </div>
+
+     <div class="form-group">
+         <label for="designation" style="font-weight: lighter;font-family: Georgia;font-size: 18px; color: #3399ff; margin-top: 10px;">Designation</label>
+         <input type="text" class="form-control" id="designation" required [(ngModel)]="newClient.designation" name="designation" #designation="ngModel">
+         <div [hidden]="designation.valid || designation.pristine" class="alert alert-danger">
+                Your Designation is Required
+         </div>
+      </div>
+      <br/> 
+      <div class="termsMessage">
+         <h5>By registering, you're agreeing to the terms and conditions below</h5>
+         <a role="button" routerLink="/termsandconditions">Terms and Conditions</a>
+      </div>
+
+
+      <br/><br/> 
+      <button type="button" class="btn btn-default" (click)="registerClient()">Clear</button>
+
+      <button type="submit" mat-raised-button color="primary" class="btn btn-success" [disabled]="!clientForm.form.valid">Register</button>
+
+    </form>
+
+</div> <br/><br/><br/>

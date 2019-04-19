@@ -1,0 +1,90 @@
+<mat-sidenav-container class="side-menu-ex">
+  <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+    
+   
+   <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+ 
+    <mat-list class="sideMenuBG">
+       <mat-list-item class="logo">
+       <span>
+           <img src="../assets/icon.png" height="45" alt="">
+       
+       </span>
+       <span>
+           <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+       </span>
+      
+     </mat-list-item>
+   <hr>
+   <mat-list-item role="button" (click)="payments()">
+    <h3 matLine>Payment Methods</h3>
+  </mat-list-item>
+  <mat-list-item role="button" (click)="home()">
+    <h3 matLine>Booked Jobs</h3>
+  </mat-list-item>
+        <mat-list-item role="button" (click)="addjob()">
+          <h3 matLine>New Booking</h3>
+       </mat-list-item>
+       
+        <mat-list-item role="button" (click)="settings()">
+         <h3 matLine>Settings</h3>
+       </mat-list-item>
+   </mat-list>
+ 
+   </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <mat-toolbar >  
+      
+      <span>
+         <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+      </span>
+       <span>
+           <h1 matLine>Add Bank Account</h1>
+       </span>
+           <span class="space"></span>
+           
+             <span>
+           
+                 <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+           
+           </span>
+      
+     </mat-toolbar>
+
+
+<div class="bankAccountContainer">
+
+
+    <form (ngSubmit)="addBankAccount(bankForm)" #bankForm="ngForm">
+
+      <div class="form-group">
+         <label for="routingNumber">Routing Number</label>
+         <input type="text" class="form-control" placeholder="" id="routingNumber" required [(ngModel)]="bankAccountRequest.routingNumber" name="routingNumber" #routingNumber="ngModel" >
+      </div>
+
+     <div class="form-group">
+         <label for="accountNumber" >Account Number</label>
+         <input type="text" type="text" class="form-control" placeholder="" id="accountNumber" required [(ngModel)]="bankAccountRequest.accountNumber" name="accountNumber" #accountNumber="ngModel">
+      </div>
+
+      <div class="form-group">
+         <label for="accountHolderName">Account Holder Name</label>
+         <input type="text" class="form-control" id="accountHolderName" required [(ngModel)]="bankAccountRequest.accountHolderName" name="accountHolderName" #accountHolderName="ngModel">
+      </div>
+
+
+      <div class="bankError" *ngIf="bankError">Oops! Something went wrong. Please verify correct bank account information</div>
+
+      <button class="btn btn-primary" [disabled]="!bankForm.form.valid" (submit)="addBankAccount">Save</button>
+
+
+     </form>
+
+</div>
+<br/><br/>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

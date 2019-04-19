@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Add Location</h2>
+
+
+<mat-dialog-content>
+
+    <mat-form-field>
+
+        <input matInput
+                placeholder="Description"
+                [(ngModel)]="description">
+
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Assign to Guard" [(ngModel)]="selected">
+            <mat-option *ngFor="let av_guard of data" [value]="av_guard">
+                <img class="img-circle" aria-hidden src="{{av_guard.profile_pic}}" height="25" />
+              {{ av_guard.first_name }} {{av_guard.last_name}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+
+  <button mat-raised-button matDialogClose>Cancel</button>
+    <!-- <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button> -->
+
+    <button class="mat-raised-button mat-primary"
+            (click)="save()">
+        Save
+    </button>
+
+</mat-dialog-actions>

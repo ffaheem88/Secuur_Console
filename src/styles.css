@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+h1{
+    color: #FFFFFF;
+    font-family: "Nunito, sans-serif"; 
+}
+
+.center-div
+{
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 500px;
+  height: 1250px;
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+  /* //background: rgba(0,0,0,0.5); */
+  border-radius: 20px;
+}
+
+

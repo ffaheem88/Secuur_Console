@@ -1,0 +1,155 @@
+
+ 
+
+<mat-sidenav-container class="side-menu-ex">
+  <mat-sidenav class="matSideNav" mode="side" #sidenav [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'">
+   
+  
+  <!-- [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')"> -->
+
+   <mat-list class="sideMenuBG">
+      <mat-list-item class="logo" (click)="home()">
+      <span>
+          <img src="../assets/icon.png" height="45" alt="">
+      
+      </span>
+      <span>
+          <h3 class="logo-header" matLine>secuur<b>.co</b></h3>
+      </span>
+     
+    </mat-list-item>
+  <hr>
+  <mat-list-item role="button" (click)="employee()">
+      <h3 matLine>Employees</h3>
+   </mat-list-item>
+       <mat-list-item role="button" (click)="addjob()">
+         <h3 matLine>New Booking</h3>
+      </mat-list-item>
+      <mat-list-item role="button" (click)="payments()">
+          <h3 matLine>Payments</h3>
+        </mat-list-item>
+       <mat-list-item role="button" (click)="settings()">
+        <h3 matLine>Settings</h3>
+      </mat-list-item>
+  </mat-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+     
+      <mat-toolbar >  
+        
+         <span>
+            <a role="button" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+         </span>
+          <span>
+              <h1 matLine>Employee Detail</h1>
+          </span>
+              <span class="space"></span>
+              
+                <span>
+              
+                    <button mat-button (click)="logout()"><mat-icon>account_box</mat-icon>Logout</button>
+              
+              </span>
+         
+        </mat-toolbar>
+
+
+
+
+
+
+
+ <div  class="jobContainer">
+
+    <mat-grid-list cols="2" rowHeight="500px">
+            <mat-grid-tile>
+                    <mat-card class="map-card">
+                        <!-- <p>Last Known Location</p> -->
+                        <img  class="profile-image"  src="{{emp.profile_pic}}">
+                    <!-- <div #map id="map"></div> -->
+                 
+        </mat-card>
+                 </mat-grid-tile>
+        <mat-grid-tile> 
+          <mat-card class="example-card">
+            <mat-card-header>
+               
+              <mat-card-title><h3>{{emp.first_name}} {{emp.last_name}}</h3></mat-card-title>
+              <!-- <mat-card-subtitle>{{emp.designation}}</mat-card-subtitle> -->
+            </mat-card-header>
+            <mat-card-content>
+              <br>
+                <p>Email</p>
+                <mat-card-subtitle>{{emp.email}}</mat-card-subtitle>
+                <p>Phone</p>
+                <mat-card-subtitle>{{emp.phone}}</mat-card-subtitle>
+                <p>Address</p>
+                <mat-card-subtitle>{{emp.address}}</mat-card-subtitle>
+                        </mat-card-content>
+            <mat-card-actions>
+              <button (click)="deleteEmployee()" mat-button>DELETE</button>
+            </mat-card-actions>
+          </mat-card>
+          </mat-grid-tile>
+     
+      </mat-grid-list>
+      <h4 matLine>Job History</h4>
+      <div class="noJobsMessage" *ngIf="emptyJobs">
+        <h1>No Jobs Assigned</h1>
+ </div>
+ <div  *ngIf="!emptyJobs">
+       
+        <mat-table #table [dataSource]="dataSource" matSort>
+    
+            <ng-container matColumnDef="address">
+               <mat-header-cell  *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+               <mat-cell role="button" class="address" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.address}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="startTime">
+               <mat-header-cell *matHeaderCellDef mat-sort-header> Start Time </mat-header-cell>
+               <mat-cell class="startTime-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.startTime | date: 'EEEE, MMMM d, y, h:mm a'}} </mat-cell>
+            </ng-container>
+    
+            <!-- <ng-container matColumnDef="numberOfGuards">
+               <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Guards Requested </mat-header-cell>
+               <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.numberOfGuards}} </mat-cell>
+            </ng-container> -->
+    
+            <ng-container matColumnDef="assignedGuards">
+                <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Guards on Duty </mat-header-cell>
+                <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.numberOfGuards}} </mat-cell>
+             </ng-container>
+    
+            <ng-container matColumnDef="jobstatus">
+                <mat-header-cell class="header-cell" *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" routerLink="/bookedjob-detail/{{element.id}}"> {{element.statusdes}} </mat-cell>
+             </ng-container>
+    
+             <ng-container matColumnDef="details">
+                <mat-header-cell class="header-cell" *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell class="guards-mat-cell" role="button" *matCellDef="let element" >  <button color="primary" mat-raised-button routerLink="/bookedjob-detail/{{element.id}}">Details</button> </mat-cell>
+             </ng-container>
+    
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row [style.background-color]="getColor(row)" [style.font-weight]="getFont(row)" [style.box-shadow]="getShadow(row)"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator class="" #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>
+   
+ 
+</div>
+
+</div>
+
+
+<div class="footer">Copyright © 2018 Secuur.co. All rights reserved.</div>
+
+ </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,140 @@
+
+mat-toolbar{
+  background: white;
+
+}
+
+.space {
+ 
+  flex: 1 1 auto;
+}
+.matLoginContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 48px;
+  width: 350px;
+  float: center;
+margin-top:20%;
+   /* margin: 0 auto;  */
+  margin-left:30%;
+}
+
+
+
+.sideMenuBG h3  {
+  color: #FFFFFF;
+ }
+ 
+ .side-menu-ex {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+ }
+ 
+ .matSideNav {
+ width: 300px;
+ background-color: #0F0F0F;
+ }
+ 
+ 
+ h1 {
+  color: #000000;
+  font-family: Nunito, sans-serif;
+  /* text-align: right; */
+  font-size: 25px;
+  /* font-weight: bold; */
+ }
+
+ h4{
+  color: #363636;
+  font-family: Nunito, sans-serif;
+  /* text-align: right; */
+  font-size: 15px;
+  margin-bottom:70px;
+  /* font-weight: bold; */
+ }
+ .label{
+   color: #000000;
+   font-size: 11px;
+   font-weight:bold;
+   margin-left:-6px;
+   margin-bottom:20px;
+ }
+ 
+ .logo{
+   margin-top:20%;
+   margin-left:20px;
+ }
+ .logo-header{
+  font-family: Nunito, sans-serif;
+  font-size:28px;
+   margin-left:10px;
+   margin-top:10px;
+   opacity:0.5;
+ }
+ 
+
+ .noaccount{
+   font-size:11px;
+   margin-right:20px;
+   color:#363636;
+ }
+
+ .signup{
+   border: 1px solid #000000;
+   border-radius:20px;
+   padding-left:17px;
+   padding-right: 17px;
+   font-size:9px;
+   font-weight:bold;
+   color:#363636;
+ }
+
+ .signup:hover{
+  background: #c9c9c9;
+ }
+.info{
+  margin-top:20%;
+}
+ p{
+   color:white;
+   margin-top:15px;
+   padding-left:20px;
+   padding-right:20px;
+ }
+ .footer{
+  font-size:11px;
+  color:rgb(139, 139, 139);
+  text-align: center;
+  margin-top:35%;
+  font-weight: 600;
+  width:100%;
+
+}
+
+@media screen and (max-width: 600px) {
+  .matSideNav {
+    visibility: hidden;
+    
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 0%;
+    display: none;
+  }
+
+  .matLoginContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    float: center;
+   margin-top:20%;
+   margin-left:5%;
+    /* margin: 0 auto; */
+    
+  }
+}
